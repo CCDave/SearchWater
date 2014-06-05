@@ -1,0 +1,4 @@
+LIBRARY	"Spider"
+
+EXPORTS
+	CreateSpider

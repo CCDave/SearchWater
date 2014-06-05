@@ -39,6 +39,18 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
 
 	UIAddChildWindowContainer(m_hWnd);
 
+    HMODULE hMode = LoadLibrary(L"../../bin/Spider.dll");
+    typedef HRESULT  (WINAPI *defCreateObject)(ULONG /*½Ó¿ÚID*/ Id, HWND hWnd, LPVOID* ppvObj);
+    defCreateObject fuc;
+    if (hMode)
+    {
+        fuc = reinterpret_cast<defCreateObject>(GetProcAddress(hMode, "CreateSpider"));
+        if (fuc)
+        {
+            fuc(0, this->m_hWnd, NULL);
+        }
+    }
+
 	return TRUE;
 }
 

@@ -72,118 +72,28 @@ STDMETHODIMP CBrowser::Invoke(DISPID dispIdMember,REFIID riid,LCID lcid,WORD wFl
 	
 	if(dispIdMember == DISPID_DOCUMENTCOMPLETE) 
 	{
+		
+		DocumentComplete(pDispParams->rgvarg[1].pdispVal,pDispParams->rgvarg[0].pvarVal); 
+		return S_OK; 	
+		//文档接手完成通过比对URL判断加载的页面
 		// OnNavigateComplete 
-		::MessageBox(NULL,_T("DISPID_DOCUMENTCOMPLETE"),_T("文档加载完毕提示"),MB_OK);
+		//::MessageBox(NULL,_T("DISPID_DOCUMENTCOMPLETE"),_T("文档加载完毕提示"),MB_OK);
 
-		CComQIPtr<IWebBrowser2> pDisp1 = pDispParams->rgvarg[1].pdispVal;
-		if (m_spWebBrowser2 && pDisp1==m_spWebBrowser2)
-		{
-			// 获取Document
-			CComQIPtr<IDispatch> pDisp;
-			hr = m_spWebBrowser2->get_Document(&pDisp);
-			if (FAILED(hr))
-				return S_FALSE;
-
-			// 获取IHTMLDocument2指针
-			CComQIPtr<IHTMLDocument2> pDocument;
-			hr = pDisp->QueryInterface(IID_IHTMLDocument2,(void**)&pDocument);
-			if (FAILED(hr))
-				return S_FALSE;
-
-// 			// 获取表单数据并提交
-// 			CComQIPtr<IHTMLElementCollection> spElementCollection;
-// 			hr = pDocument->get_forms(&spElementCollection);
+// 		CComQIPtr<IWebBrowser2> pDisp1 = pDispParams->rgvarg[1].pdispVal;
+// 		if (m_spWebBrowser2 && pDisp1==m_spWebBrowser2)
+// 		{
+// 			// 获取Document
+// 			CComQIPtr<IDispatch> pDisp;
+// 			hr = m_spWebBrowser2->get_Document(&pDisp);
 // 			if (FAILED(hr))
 // 				return S_FALSE;
 // 
-// 			long nFormCount =0;
-// 			hr = spElementCollection->get_length(&nFormCount);
-// 			if (FAILED(hr)||nFormCount<=0)
-// 				return S_FALSE;
-// 
-// 			for (long k=0;k<nFormCount;k++)
-// 			{
-// 				CComQIPtr<IDispatch> pDisp1;
-// 				hr = spElementCollection->item(CComVariant(k),CComVariant(),&pDisp1);
-// 				CComQIPtr<IHTMLFormElement> spFormElement =pDisp1;
-// 
-// 				long nElementCount =0;
-// 				hr = spFormElement->get_length(&nElementCount);
-// 				if (FAILED(hr))
-// 					return S_FALSE;
-// 
-// 				for (long c=0;c<nElementCount;c++)
-// 				{
-// 					CComDispatchDriver spInputElement1;
-// 					CComQIPtr<IHTMLElement> pHElement;
-// 					hr = spFormElement->item(CComVariant(c),CComVariant(),&spInputElement1);
-// 					if (FAILED(hr))
-// 						continue;
-// 
-// 					spInputElement1->QueryInterface(IID_IHTMLElement,(void**)&pHElement);
-// 
-// 					CComVariant vType;
-// 					CComVariant vName;
-// 					CComVariant	vValue;
-// 					if (pHElement==NULL)
-// 						continue;
-// 
-// 					hr = spInputElement1.GetPropertyByName(_T("type"),&vType);
-// 					if (FAILED(hr))
-// 						continue;
-// 					hr = spInputElement1.GetPropertyByName(_T("name"),&vName);
-// 					if (FAILED(hr))
-// 						continue;
-// 					hr = spInputElement1.GetPropertyByName(_T("value"),&vValue);
-// 					if (FAILED(hr))
-// 						continue;
-// 
-// 					LPCTSTR lpType = vType.bstrVal ? OLE2CT(vType.bstrVal) : _T("NULL");
-// 					LPCTSTR lpName = vType.bstrVal ? OLE2CT(vType.bstrVal) : _T("NULL");
-// 					LPCTSTR lpVal = vType.bstrVal ? OLE2CT(vType.bstrVal) : _T("NULL");
-// 
-// 					if ( _tcscmp(lpType,_T("submit"))==0 && _tcscmp(lpVal,_T("submit"))==0 )
-// 					{
-// 						//::MessageBox(NULL,lpType,_T("type="),MB_OK);
-// 						pHElement->click();
-// 					}
-// 				}
-// 			}
-
-// 			// 从body获得IHTMLElement2指针，用以访问滚动条
-// 			CComQIPtr<IHTMLElement> pBody;
-// 			hr = pDocument->get_body(&pBody);
+// 			// 获取IHTMLDocument2指针
+// 			CComQIPtr<IHTMLDocument2> pDocument;
+// 			hr = pDisp->QueryInterface(IID_IHTMLDocument2,(void**)&pDocument);
 // 			if (FAILED(hr))
 // 				return S_FALSE;
-// 
-// 			CComQIPtr<IHTMLElement2> pElement;
-// 			hr = pBody->QueryInterface(IID_IHTMLElement2,(void**)&pElement);
-// 			if (FAILED(hr))
-// 				return S_FALSE;
-// 
-// 			//获得文档高度，不是可见区域的高度。
-// 			long scroll_height;
-// 			pElement->get_scrollHeight(&scroll_height);
-// 
-// 			//获得文档宽度，不是可见区域的宽度。
-// 			long scroll_width;
-// 			pElement->get_scrollWidth(&scroll_width);
-// 
-// 			//获得滚动条位置，从顶端开始。
-// 			long scroll_top;
-// 			pElement->get_scrollTop(&scroll_top);
-// 
-// 			//获得文档高度，including padding,but not including margin,border,or scroll bar.
-// 			long height;
-// 			pElement->get_clientHeight(&height);
-// 
-// 			//滚动到最后
-// 			hr = pElement->put_scrollTop(500);
-// 			if (FAILED(hr))
-// 			{
-// 				::MessageBox(NULL,_T("Failed to put_scrollTop"),_T("xx"),MB_OK);
-// 			}
-		}
+// 		}
 	}
 
 	return hr;
@@ -235,8 +145,8 @@ BOOL CBrowser::Visit(tstring strURL)
 {
 
     CComVariant varUrl(strURL.c_str());
+	m_strCurrentUrl = strURL;
     m_spWebBrowser2->Navigate2(&varUrl,0,0,0,0);
-
 
     return TRUE;
 }
@@ -272,6 +182,103 @@ Cleanup:
     return hr;
 }
 
+HRESULT CBrowser::Report()
+{
+	// 			// 获取表单数据并提交
+	// 			CComQIPtr<IHTMLElementCollection> spElementCollection;
+	// 			hr = pDocument->get_forms(&spElementCollection);
+	// 			if (FAILED(hr))
+	// 				return S_FALSE;
+	// 
+	// 			long nFormCount =0;
+	// 			hr = spElementCollection->get_length(&nFormCount);
+	// 			if (FAILED(hr)||nFormCount<=0)
+	// 				return S_FALSE;
+	// 
+	// 			for (long k=0;k<nFormCount;k++)
+	// 			{
+	// 				CComQIPtr<IDispatch> pDisp1;
+	// 				hr = spElementCollection->item(CComVariant(k),CComVariant(),&pDisp1);
+	// 				CComQIPtr<IHTMLFormElement> spFormElement =pDisp1;
+	// 
+	// 				long nElementCount =0;
+	// 				hr = spFormElement->get_length(&nElementCount);
+	// 				if (FAILED(hr))
+	// 					return S_FALSE;
+	// 
+	// 				for (long c=0;c<nElementCount;c++)
+	// 				{
+	// 					CComDispatchDriver spInputElement1;
+	// 					CComQIPtr<IHTMLElement> pHElement;
+	// 					hr = spFormElement->item(CComVariant(c),CComVariant(),&spInputElement1);
+	// 					if (FAILED(hr))
+	// 						continue;
+	// 
+	// 					spInputElement1->QueryInterface(IID_IHTMLElement,(void**)&pHElement);
+	// 
+	// 					CComVariant vType;
+	// 					CComVariant vName;
+	// 					CComVariant	vValue;
+	// 					if (pHElement==NULL)
+	// 						continue;
+	// 
+	// 					hr = spInputElement1.GetPropertyByName(_T("type"),&vType);
+	// 					if (FAILED(hr))
+	// 						continue;
+	// 					hr = spInputElement1.GetPropertyByName(_T("name"),&vName);
+	// 					if (FAILED(hr))
+	// 						continue;
+	// 					hr = spInputElement1.GetPropertyByName(_T("value"),&vValue);
+	// 					if (FAILED(hr))
+	// 						continue;
+	// 
+	// 					LPCTSTR lpType = vType.bstrVal ? OLE2CT(vType.bstrVal) : _T("NULL");
+	// 					LPCTSTR lpName = vType.bstrVal ? OLE2CT(vType.bstrVal) : _T("NULL");
+	// 					LPCTSTR lpVal = vType.bstrVal ? OLE2CT(vType.bstrVal) : _T("NULL");
+	// 
+	// 					if ( _tcscmp(lpType,_T("submit"))==0 && _tcscmp(lpVal,_T("submit"))==0 )
+	// 					{
+	// 						//::MessageBox(NULL,lpType,_T("type="),MB_OK);
+	// 						pHElement->click();
+	// 					}
+	// 				}
+	// 			}
+
+	// 			// 从body获得IHTMLElement2指针，用以访问滚动条
+	// 			CComQIPtr<IHTMLElement> pBody;
+	// 			hr = pDocument->get_body(&pBody);
+	// 			if (FAILED(hr))
+	// 				return S_FALSE;
+	// 
+	// 			CComQIPtr<IHTMLElement2> pElement;
+	// 			hr = pBody->QueryInterface(IID_IHTMLElement2,(void**)&pElement);
+	// 			if (FAILED(hr))
+	// 				return S_FALSE;
+	// 
+	// 			//获得文档高度，不是可见区域的高度。
+	// 			long scroll_height;
+	// 			pElement->get_scrollHeight(&scroll_height);
+	// 
+	// 			//获得文档宽度，不是可见区域的宽度。
+	// 			long scroll_width;
+	// 			pElement->get_scrollWidth(&scroll_width);
+	// 
+	// 			//获得滚动条位置，从顶端开始。
+	// 			long scroll_top;
+	// 			pElement->get_scrollTop(&scroll_top);
+	// 
+	// 			//获得文档高度，including padding,but not including margin,border,or scroll bar.
+	// 			long height;
+	// 			pElement->get_clientHeight(&height);
+	// 
+	// 			//滚动到最后
+	// 			hr = pElement->put_scrollTop(500);
+	// 			if (FAILED(hr))
+	// 			{
+	// 				::MessageBox(NULL,_T("Failed to put_scrollTop"),_T("xx"),MB_OK);
+	// 			}
+	return S_OK;
+}
 HRESULT CBrowser::UnRegisterBrowserEventSink()
 {
     HRESULT     hr = S_FALSE;
@@ -279,3 +286,31 @@ HRESULT CBrowser::UnRegisterBrowserEventSink()
     m_pCP->Release();
     return hr;
 }
+
+void CBrowser::DocumentComplete( IDispatch *pDisp,VARIANT *URL) 
+{ 
+
+	DWORD dwDisp = (DWORD)pDisp;
+	DWORD dwWeb = (DWORD)((IWebBrowser2*)m_spWebBrowser2);
+	tstring url(_T("http://"));
+	url += m_strCurrentUrl.c_str();
+	url += _T("/");
+	if ((!url.compare((LPCTSTR)URL->pcVal))||
+		(dwDisp == dwWeb))
+	{
+		HRESULT hr = S_FALSE;
+		IWebBrowser2* pWb = (IWebBrowser2*)m_spWebBrowser2;
+		CComPtr< IDispatch >    pDisp;
+		hr = pWb->get_Document( &pDisp );
+		if (hr == S_OK)
+		{
+			CComQIPtr< IHTMLDocument2 > pDoc = pDisp;
+			if( pDoc )
+			{
+				//TODO:此处已经接手到 DOC 发送去解析。
+				MessageBox(NULL, L"Doc Done", L"Doc Done", MB_OK);
+			}
+		}
+	}
+	return ; 
+} 

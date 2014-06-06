@@ -133,6 +133,7 @@ void CBrowserEvent::NewWindow2(LPDISPATCH* ppDisp, VARIANT_BOOL * Cancel)
 
 void CBrowserEvent::DocumentComplete( IDispatch *pDisp,VARIANT *URL) 
 { 
+
 	DWORD dwDisp = (DWORD)pDisp;
 	DWORD dwWeb = (DWORD)_pWeb;
 	CString url(_T("http://"));

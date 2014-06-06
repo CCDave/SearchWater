@@ -195,10 +195,6 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\GetDoc.cpp"
-				>
-			</File>
-			<File
 				RelativePath=".\Spider.cpp"
 				>
 			</File>
@@ -233,7 +229,7 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\GetDoc.h"
+				RelativePath=".\resource.h"
 				>
 			</File>
 			<File
@@ -250,38 +246,62 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-		</Filter>
-		<Filter
-			Name="Browser"
-			>
 			<File
-				RelativePath=".\Browser\Browser.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Browser\Browser.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Browser\EventSink.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Browser\EventSink.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Browser\UIHanderlFace.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Browser\UIHanderlFace.h"
+				RelativePath=".\Spider.rc"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="GetDoc"
+			Name="Spider"
 			>
+			<File
+				RelativePath=".\HttpDocumentProxy.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\HttpDocumentProxy.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpiderInterface.h"
+				>
+			</File>
+			<Filter
+				Name="Browser"
+				>
+				<File
+					RelativePath=".\Browser\Browser.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Browser\Browser.h"
+					>
+				</File>
+				<File
+					RelativePath=".\Browser\UIHanderlFace.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\Browser\UIHanderlFace.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="base"
+				>
+				<File
+					RelativePath="..\..\common\base\Lock.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\common\base\ObjectInterface.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\common\base\SingleObject.h"
+					>
+				</File>
+			</Filter>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"

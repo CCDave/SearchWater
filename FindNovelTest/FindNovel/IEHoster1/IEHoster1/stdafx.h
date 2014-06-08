@@ -31,7 +31,6 @@ extern CAppModule _Module;
 
 
 #include <exdisp.h>
-#include <exdisp.h>
 
 
 class CListViewCtrlImpl : public CWindowImpl<CListViewCtrlImpl, CListViewCtrl>

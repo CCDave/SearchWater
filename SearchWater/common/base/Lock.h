@@ -1,6 +1,7 @@
 #ifndef _LOCK_
 #define _LOCK_
 #include <atlsync.h>
+
 class Lock
 {
 private:       

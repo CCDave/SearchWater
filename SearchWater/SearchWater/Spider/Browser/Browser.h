@@ -7,6 +7,8 @@
 #include <ExDispid.h>
 
 #include "UIHanderlFace.h"
+#include "../BrowserCallback.h"
+
 
 // define tstring.
 #ifdef tstring
@@ -34,8 +36,8 @@ public:
     CBrowser();
     ~CBrowser(void);
 
-    BOOL Init(const HWND hParentWnd,RECT & rc);
-    BOOL Visit(tstring strURL);
+    BOOL Init(IBrowserCallBack* pCallBack, const HWND hParentWnd,RECT & rc);
+    BOOL Visit(UINT uMsg, tstring strURL);
 
 protected:
     HRESULT RegisterBrowserEventSink();
@@ -50,6 +52,9 @@ protected:
     IConnectionPoint *m_pCP;
     DWORD m_dwEventCookie;
 	tstring m_strCurrentUrl;
+
+	IBrowserCallBack* m_pCallBack;
+	UINT m_uMsg;
 };
 
 #endif

@@ -246,24 +246,28 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
-			<File
-				RelativePath=".\Spider.rc"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Spider"
 			>
 			<File
-				RelativePath=".\HttpDocumentProxy.cpp"
+				RelativePath=".\BrowserCallback.h"
 				>
 			</File>
 			<File
-				RelativePath=".\HttpDocumentProxy.h"
+				RelativePath=".\DAVSpiderInterface.h"
 				>
 			</File>
 			<File
 				RelativePath=".\SpiderInterface.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SpiderWork.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\SpiderWork.h"
 				>
 			</File>
 			<Filter
@@ -299,6 +303,50 @@
 				</File>
 				<File
 					RelativePath="..\..\common\base\SingleObject.h"
+					>
+				</File>
+				<File
+					RelativePath="..\..\common\base\ThreadBase.h"
+					>
+				</File>
+			</Filter>
+			<Filter
+				Name="ParseHtml"
+				>
+				<File
+					RelativePath=".\FindElementByPos.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\FindElementByPos.h"
+					>
+				</File>
+				<File
+					RelativePath=".\HttpDocmentParse.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\HttpDocmentParse.h"
+					>
+				</File>
+				<File
+					RelativePath=".\HttpDocumentProxy.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\HttpDocumentProxy.h"
+					>
+				</File>
+				<File
+					RelativePath=".\IFindElement.h"
+					>
+				</File>
+				<File
+					RelativePath=".\ParseHomezjcq.cpp"
+					>
+				</File>
+				<File
+					RelativePath=".\ParseHomezjcq.h"
 					>
 				</File>
 			</Filter>

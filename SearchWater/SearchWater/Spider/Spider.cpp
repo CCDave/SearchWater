@@ -2,18 +2,26 @@
 //
 
 #include "stdafx.h"
-#include "Browser/Browser.h"
+#include "SpiderWork.h"
+IDAVSpiderInterface* pInterface = NULL;
 CAppModule _Module;
+HWND _hostWnd = NULL;
 
-
-CBrowser m_oBrowser;
 // 获取蜘蛛的对象
 HRESULT WINAPI CreateSpider(ULONG /*接口ID*/ Id, HWND hWnd, LPVOID* ppvObj)
 {
-	RECT rc = {};
-    if (FALSE==m_oBrowser.Init(hWnd,rc))
-        return FALSE;
+	HRESULT hRet = E_FAIL;
+	_hostWnd = hWnd;
+	if (!pInterface)
+	{
+		pInterface = new CSpiderWork(hWnd);
+		pInterface->SetHostWindow(hWnd);
+	}
 
-    m_oBrowser.Visit(_T("http://cp.360.cn/jczq"));
-    return NULL;
+	if (pInterface)
+	{
+		*ppvObj = pInterface;
+	}
+
+    return hRet;
 }

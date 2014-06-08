@@ -7,7 +7,8 @@
 CBrowser::CBrowser()
 {
     m_pCP = NULL;
-    m_dwEventCookie =0;
+    m_dwEventCookie = 0;
+	m_pCallBack = NULL;
 //	m_iUIFace = NULL;
 }
 
@@ -75,32 +76,14 @@ STDMETHODIMP CBrowser::Invoke(DISPID dispIdMember,REFIID riid,LCID lcid,WORD wFl
 		
 		DocumentComplete(pDispParams->rgvarg[1].pdispVal,pDispParams->rgvarg[0].pvarVal); 
 		return S_OK; 	
-		//文档接手完成通过比对URL判断加载的页面
-		// OnNavigateComplete 
-		//::MessageBox(NULL,_T("DISPID_DOCUMENTCOMPLETE"),_T("文档加载完毕提示"),MB_OK);
-
-// 		CComQIPtr<IWebBrowser2> pDisp1 = pDispParams->rgvarg[1].pdispVal;
-// 		if (m_spWebBrowser2 && pDisp1==m_spWebBrowser2)
-// 		{
-// 			// 获取Document
-// 			CComQIPtr<IDispatch> pDisp;
-// 			hr = m_spWebBrowser2->get_Document(&pDisp);
-// 			if (FAILED(hr))
-// 				return S_FALSE;
-// 
-// 			// 获取IHTMLDocument2指针
-// 			CComQIPtr<IHTMLDocument2> pDocument;
-// 			hr = pDisp->QueryInterface(IID_IHTMLDocument2,(void**)&pDocument);
-// 			if (FAILED(hr))
-// 				return S_FALSE;
-// 		}
 	}
 
 	return hr;
 }
 
-BOOL CBrowser::Init(const HWND hParentWnd,RECT & rc)
+BOOL CBrowser::Init(IBrowserCallBack* pCallBack, const HWND hParentWnd,RECT & rc)
 {
+	m_pCallBack = pCallBack;
     m_axWindow.Create(hParentWnd, rc, 0,WS_CHILD |WS_VISIBLE);
     m_axWindow.CreateControl(OLESTR("shell.Explorer.2"));
     m_axWindow.QueryControl(&m_spWebBrowser2);  
@@ -141,13 +124,13 @@ BOOL CBrowser::Init(const HWND hParentWnd,RECT & rc)
     return TRUE;
 }
 
-BOOL CBrowser::Visit(tstring strURL)
+BOOL CBrowser::Visit(UINT uMsg, tstring strURL)
 {
-
+	m_uMsg = uMsg;
     CComVariant varUrl(strURL.c_str());
 	m_strCurrentUrl = strURL;
     m_spWebBrowser2->Navigate2(&varUrl,0,0,0,0);
-
+	
     return TRUE;
 }
 
@@ -309,6 +292,19 @@ void CBrowser::DocumentComplete( IDispatch *pDisp,VARIANT *URL)
 			{
 				//TODO:此处已经接手到 DOC 发送去解析。
 				MessageBox(NULL, L"Doc Done", L"Doc Done", MB_OK);
+				BOOL bHandle = FALSE;
+				if (m_pCallBack && SUCCEEDED(m_pCallBack->BrowserCallBack(pDoc, m_uMsg, NULL, NULL, bHandle)))
+				{
+					//成功执行
+					if (bHandle)
+					{
+						//已经处理
+					}
+					else
+					{
+						//没有处理
+					}
+				}
 			}
 		}
 	}

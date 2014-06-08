@@ -17,5 +17,10 @@
 #include <atlwin.h>
 
 #include <atlcrack.h>
+#include <atlmisc.h>
+
+#include <map>
+
+#include <comdef.h>
 
 // TODO: reference additional headers your program requires here

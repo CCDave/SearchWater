@@ -47,10 +47,10 @@ LRESULT CMainDlg::OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam
         fuc = reinterpret_cast<defCreateObject>(GetProcAddress(hMode, "CreateSpider"));
         if (fuc)
         {
-            fuc(0, this->m_hWnd, NULL);
+            fuc(0, this->m_hWnd, (LPVOID*)&pSpider);
         }
     }
-
+	
 	return TRUE;
 }
 
@@ -89,4 +89,16 @@ void CMainDlg::CloseDialog(int nVal)
 {
 	DestroyWindow();
 	::PostQuitMessage(nVal);
+}
+
+LRESULT CMainDlg::OnBnClickedButton1(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
+{
+	// TODO: Add your control notification handler code here
+	if (pSpider)
+	{
+		std::vector<DWORD> vet;
+		pSpider->SpiderWork(GET_HOME_PAGE_ZJCQ_DADA, L"cp.360.cn/jczq", &vet, 5000);
+	}
+
+	return 0;
 }

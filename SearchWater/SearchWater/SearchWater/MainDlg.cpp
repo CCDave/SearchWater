@@ -96,8 +96,8 @@ LRESULT CMainDlg::OnBnClickedButton1(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*
 	// TODO: Add your control notification handler code here
 	if (pSpider)
 	{
-		std::vector<DWORD> vet;
-		pSpider->SpiderWork(GET_HOME_PAGE_ZJCQ_DADA, L"cp.360.cn/jczq", &vet, 5000);
+		vMainInfo.clear();
+		pSpider->SpiderWork(GET_HOME_PAGE_ZJCQ_DADA, L"cp.360.cn/jczq", &vMainInfo, 5000);
 	}
 
 	return 0;

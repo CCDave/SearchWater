@@ -21,6 +21,11 @@ public:
 
 	STDMETHOD (init)(){ATLASSERT(NULL); return S_OK;}
 	STDMETHOD (destory)(){ATLASSERT(NULL); return S_OK;}
+
+
+protected:
+	//公用函数解析字符串，HTML
+
 protected:
 	CCondition _condition;
 	CElementInfo _element_info;

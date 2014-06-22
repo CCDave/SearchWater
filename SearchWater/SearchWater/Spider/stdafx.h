@@ -17,10 +17,13 @@
 #include <atlwin.h>
 
 #include <atlcrack.h>
-#include <atlmisc.h>
+#include <atlstr.h>
 
 #include <map>
+#include <vector>
 
 #include <comdef.h>
+
+#include <mmsystem.h>
 
 // TODO: reference additional headers your program requires here

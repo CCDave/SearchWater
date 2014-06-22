@@ -251,6 +251,14 @@
 			Name="Spider"
 			>
 			<File
+				RelativePath=".\AdvFunction.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\AdvFunction.h"
+				>
+			</File>
+			<File
 				RelativePath=".\BrowserCallback.h"
 				>
 			</File>

@@ -43,4 +43,6 @@ private:
 	IDAVSpiderInterface* pSpider;
 public:
 	LRESULT OnBnClickedButton1(WORD /*wNotifyCode*/, WORD /*wID*/, HWND /*hWndCtl*/, BOOL& /*bHandled*/);
+
+	VMatchInfo vMainInfo;	
 };

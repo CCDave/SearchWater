@@ -5,6 +5,7 @@
 
 ********************************************************************************************************************/
 #include <vector>
+#include "DAVSpiderInterface.h"
 
 #ifndef _ELEMENTINFOEX
 #define _ELEMENTINFOEX
